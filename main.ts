@@ -2,7 +2,7 @@ import {
   app,
   get,
   contentType,
-} from "https://denopkg.com/syumai/dinatra/mod.ts";
+} from "./deps.ts";
 import {search} from "./search.ts";
 
 import index from './data/indexes.json' assert {type: "json"};

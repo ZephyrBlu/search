@@ -1,4 +1,4 @@
-import {contentType} from "https://denopkg.com/syumai/dinatra/mod.ts";
+import {contentType} from "./deps.ts";
 
 export function search(params, indexes, replays) {
   if (!params.q) {
