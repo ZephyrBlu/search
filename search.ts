@@ -4,7 +4,10 @@ export function search(params, indexes, replays) {
   if (!params.q) {
     return [
       400,
-      contentType("json"),
+      {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
+      },
       JSON.stringify({message: 'No search parameter'}),
     ];
   }
@@ -67,7 +70,10 @@ export function search(params, indexes, replays) {
 
   return [
     200,
-    contentType("json"),
+    {
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': '*',
+    },,
     JSON.stringify({results: results.slice(0, 100)}),
   ];
 }

@@ -11,7 +11,10 @@ import replays from './data/replays.json' assert {type: "json"};
 app(
   get("/ping", () => [
     200,
-    contentType("json"),
+    {
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': '*',
+    },,
     JSON.stringify({message: 'pong'}),
   ]),
   get("/search/:index", ({ params }) => search(params, index, replays)),
