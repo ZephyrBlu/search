@@ -12,7 +12,10 @@ export function search(params, indexes, replays) {
   if (!['race', 'player', 'map', 'all'].includes(params.index)) {
     return [
       400,
-      contentType("json"),
+      {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
+      },
       JSON.stringify({message: `No such index: ${params.index}`}),
     ];
   }
