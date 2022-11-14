@@ -1,14 +1,18 @@
 import {
   app,
   get,
-  post,
-  redirect,
   contentType,
 } from "https://denopkg.com/syumai/dinatra/mod.ts";
+import {search} from "./search.ts";
 
-const greeting = "<h1>Hello From Deno on Fly!</h1>";
+import index from './data/indexes.json' assert {type: "json"};
+import replays from './data/replays.json' assert {type: "json"};
 
 app(
-  get("/", () => greeting),
-  get("/:id", ({ params }) => greeting + `</br>and hello to ${params.id}`),
+  get("/ping", () => [
+    200,
+    contentType("json"),
+    JSON.stringify({message: 'pong'}),
+  ]),
+  get("/search/:index", ({ params }) => search(params, index, replays)),
 );
