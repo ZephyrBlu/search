@@ -1,11 +1,10 @@
+import {HEADERS} from "./main.ts";
+
 export function search(params, indexes, replays) {
   if (!params.q) {
     return [
       400,
-      {
-        'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*',
-      },
+      HEADERS,
       JSON.stringify({message: 'No search parameter'}),
     ];
   }
@@ -13,10 +12,7 @@ export function search(params, indexes, replays) {
   if (!['race', 'player', 'map', 'all'].includes(params.index)) {
     return [
       400,
-      {
-        'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*',
-      },
+      HEADERS,
       JSON.stringify({message: `No such index: ${params.index}`}),
     ];
   }
@@ -68,10 +64,7 @@ export function search(params, indexes, replays) {
 
   return [
     200,
-    {
-      'Content-Type': 'application/json',
-      'Access-Control-Allow-Origin': '*',
-    },
+    HEADERS,
     JSON.stringify({results: results.slice(0, 100)}),
   ];
 }
