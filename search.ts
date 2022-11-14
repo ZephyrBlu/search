@@ -71,7 +71,7 @@ export function search(params, indexes, replays) {
     {
       'Content-Type': 'application/json',
       'Access-Control-Allow-Origin': '*',
-    },,
+    },
     JSON.stringify({results: results.slice(0, 100)}),
   ];
 }
