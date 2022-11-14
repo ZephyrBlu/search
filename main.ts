@@ -14,7 +14,7 @@ app(
     {
       'Content-Type': 'application/json',
       'Access-Control-Allow-Origin': '*',
-    },,
+    },
     JSON.stringify({message: 'pong'}),
   ]),
   get("/search/:index", ({ params }) => search(params, index, replays)),

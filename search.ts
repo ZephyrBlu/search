@@ -1,5 +1,3 @@
-import {contentType} from "./deps.ts";
-
 export function search(params, indexes, replays) {
   if (!params.q) {
     return [
