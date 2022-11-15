@@ -77,3 +77,78 @@ export function matchupTree(params, trees) {
     JSON.stringify({results: matchupTrees}),
   ];
 }
+
+function findOpponentRace(identifier: string, race: string) {
+  const opponentRace = identifier
+    .split('__')[0]
+    .split('-')[1]
+    .split(',')
+    .find(identifierRace => identifierRace !== capitalize(race));
+  return opponentRace || capitalize(race);
+}
+
+export function raceClusters(params, clusters) {
+  if (!params.race) {
+    return [
+      400,
+      HEADERS,
+      JSON.stringify({message: 'No race parameter'}),
+    ];
+  }
+
+  let raceClusters = {};
+  const race = params.race;
+  Object.entries(clusters).forEach(([build, cluster]) => {
+    if (capitalize(race) === build.split('-')[0]) {
+      const identifier = build.split('__')[0];
+      const opponentRace = findOpponentRace(identifier, race);
+      if (!raceClusters[opponentRace!]) {
+        raceClusters[opponentRace!] = {
+          total: 0,
+          clusters: [],
+        };
+      }
+      cluster.cluster.builds.sort((a, b) => b.total - a.total);
+      raceClusters[opponentRace!].clusters.push(cluster);
+      raceClusters[opponentRace!].total += cluster.total;
+
+      raceClusters[opponentRace!].clusters[raceClusters[opponentRace!].clusters.length - 1].cluster.builds = cluster.cluster.builds.slice(0, 5);
+      delete raceClusters[opponentRace!].clusters[raceClusters[opponentRace!].clusters.length - 1].matchup;
+      delete raceClusters[opponentRace!].clusters[raceClusters[opponentRace!].clusters.length - 1].tree;
+    }
+  });
+
+  Object.values(raceClusters).forEach((race) => {
+    race.clusters.sort((a, b) => b.total - a.total);
+    race.clusters = race.clusters.slice(0, 10);
+  });
+
+  return [
+    200,
+    HEADERS,
+    JSON.stringify({results: raceClusters}),
+  ];
+}
+export function raceTree(params, trees) {
+  if (!params.race) {
+    return [
+      400,
+      HEADERS,
+      JSON.stringify({message: 'No race parameter'}),
+    ];
+  }
+
+  let raceTrees = {};
+  Object.entries(trees).forEach(([identifier, tree]) => {
+    if (capitalize(params.race) === identifier.split('-')[0]) {
+      const opponentRace = findOpponentRace(identifier, params.race);
+      raceTrees[opponentRace!] = tree;
+    }
+  });
+
+  return [
+    200,
+    HEADERS,
+    JSON.stringify({results: raceTrees}),
+  ];
+}
