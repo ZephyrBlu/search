@@ -33,13 +33,13 @@ export function matchupClusters(params, clusters) {
             clusters: [],
           };
         }
-        cluster.cluster.builds.sort((a, b) => b.total - a.total);
+        cluster.cluster.sort((a, b) => b.total - a.total);
         matchupClusters[race].clusters.push(cluster);
         matchupClusters[race].total += cluster.total;
         matchupClusters[race].wins += cluster.wins;
         matchupClusters[race].losses += cluster.losses;
 
-        matchupClusters[race].clusters[matchupClusters[race].clusters.length - 1].cluster.builds = cluster.cluster.builds.slice(0, 4);
+        matchupClusters[race].clusters[matchupClusters[race].clusters.length - 1].cluster = cluster.cluster.slice(0, 4);
         delete matchupClusters[race].clusters[matchupClusters[race].clusters.length - 1].matchup;
         delete matchupClusters[race].clusters[matchupClusters[race].clusters.length - 1].tree;
       }
@@ -112,13 +112,13 @@ export function raceClusters(params, clusters) {
           clusters: [],
         };
       }
-      cluster.cluster.builds.sort((a, b) => b.total - a.total);
+      cluster.cluster.sort((a, b) => b.total - a.total);
       raceClusters[opponentRace!].clusters.push(cluster);
       raceClusters[opponentRace!].total += cluster.total;
       raceClusters[opponentRace!].wins += cluster.wins;
       raceClusters[opponentRace!].losses += cluster.losses;
 
-      raceClusters[opponentRace!].clusters[raceClusters[opponentRace!].clusters.length - 1].cluster.builds = cluster.cluster.builds.slice(0, 4);
+      raceClusters[opponentRace!].clusters[raceClusters[opponentRace!].clusters.length - 1].cluster = cluster.cluster.slice(0, 4);
       delete raceClusters[opponentRace!].clusters[raceClusters[opponentRace!].clusters.length - 1].matchup;
       delete raceClusters[opponentRace!].clusters[raceClusters[opponentRace!].clusters.length - 1].tree;
     }
