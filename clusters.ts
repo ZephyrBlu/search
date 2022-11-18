@@ -39,7 +39,7 @@ export function matchupClusters(params, clusters) {
         matchupClusters[race].wins += cluster.wins;
         matchupClusters[race].losses += cluster.losses;
 
-        matchupClusters[race].clusters[matchupClusters[race].clusters.length - 1].cluster.builds = cluster.cluster.builds.slice(0, 5);
+        matchupClusters[race].clusters[matchupClusters[race].clusters.length - 1].cluster.builds = cluster.cluster.builds.slice(0, 4);
         delete matchupClusters[race].clusters[matchupClusters[race].clusters.length - 1].matchup;
         delete matchupClusters[race].clusters[matchupClusters[race].clusters.length - 1].tree;
       }
@@ -118,7 +118,7 @@ export function raceClusters(params, clusters) {
       raceClusters[opponentRace!].wins += cluster.wins;
       raceClusters[opponentRace!].losses += cluster.losses;
 
-      raceClusters[opponentRace!].clusters[raceClusters[opponentRace!].clusters.length - 1].cluster.builds = cluster.cluster.builds.slice(0, 5);
+      raceClusters[opponentRace!].clusters[raceClusters[opponentRace!].clusters.length - 1].cluster.builds = cluster.cluster.builds.slice(0, 4);
       delete raceClusters[opponentRace!].clusters[raceClusters[opponentRace!].clusters.length - 1].matchup;
       delete raceClusters[opponentRace!].clusters[raceClusters[opponentRace!].clusters.length - 1].tree;
     }
