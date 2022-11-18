@@ -36,6 +36,8 @@ export function matchupClusters(params, clusters) {
         cluster.cluster.builds.sort((a, b) => b.total - a.total);
         matchupClusters[race].clusters.push(cluster);
         matchupClusters[race].total += cluster.total;
+        matchupClusters[race].wins += cluster.wins;
+        matchupClusters[race].losses += cluster.losses;
 
         matchupClusters[race].clusters[matchupClusters[race].clusters.length - 1].cluster.builds = cluster.cluster.builds.slice(0, 5);
         delete matchupClusters[race].clusters[matchupClusters[race].clusters.length - 1].matchup;
@@ -105,12 +107,16 @@ export function raceClusters(params, clusters) {
       if (!raceClusters[opponentRace!]) {
         raceClusters[opponentRace!] = {
           total: 0,
+          wins: 0,
+          losses: 0,
           clusters: [],
         };
       }
       cluster.cluster.builds.sort((a, b) => b.total - a.total);
       raceClusters[opponentRace!].clusters.push(cluster);
       raceClusters[opponentRace!].total += cluster.total;
+      raceClusters[opponentRace!].wins += cluster.wins;
+      raceClusters[opponentRace!].losses += cluster.losses;
 
       raceClusters[opponentRace!].clusters[raceClusters[opponentRace!].clusters.length - 1].cluster.builds = cluster.cluster.builds.slice(0, 5);
       delete raceClusters[opponentRace!].clusters[raceClusters[opponentRace!].clusters.length - 1].matchup;
